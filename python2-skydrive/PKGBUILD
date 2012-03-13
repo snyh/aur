@@ -1,0 +1,42 @@
+# Maintainer: snyh<snyh@snyh.org>
+pkgname=python2-skydrive
+pkgver=0.11
+pkgrel=1
+epoch=
+pkgdesc="Python command line client for Windows Live Skydrive"
+arch=()
+url="http://code.google.com/p/pyskydrive/"
+license=('GPL')
+groups=()
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("http://pyskydrive.googlecode.com/files/pyskydrive-0.11.tar.gz")
+noextract=()
+md5sums=() #generate with 'makepkg -g'
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  ./configure --prefix=/usr
+  make
+}
+
+check() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make -k check
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir/" install
+}
+
+# vim:set ts=2 sw=2 et:
