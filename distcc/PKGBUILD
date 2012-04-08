@@ -1,0 +1,39 @@
+# Maintainer: snyh<snyh@snyh.org>
+pkgname=distcc
+pkgver=3.2rc1
+pkgrel=1
+epoch=
+pkgdesc="a fast, free distributed C/C++ compiler (with response file patch)"
+arch=(i686)
+url="http://code.google.com/p/distcc"
+license=('GPL')
+groups=()
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(http://distcc.googlecode.com/files/$pkgname-$pkgver.tar.gz)
+noextract=()
+md5sums=("383c302a6d36dc9865943e0e76f9c527") #generate with 'makepkg -g'
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  wget 'http://distcc.googlecode.com/issues/attachment?aid=850004000&name=distcc_response_file.patch&token=fmHwbFT65-nasXPIEsFF_mYy6Cc%3A1333376958502' -O rsp.patch
+  patch -p0 < rsp.patch
+  ./configure --prefix=/usr  --disable-Werror
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir/" install
+}
+
+# vim:set ts=2 sw=2 et:
